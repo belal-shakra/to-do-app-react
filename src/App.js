@@ -1,26 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import List from "./components/List";
+import React, { useState } from "react";
+import AddTask from "./components/AddTask";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-function App() {
+
+export default function App() {
+  const [tasks, setTasks] = useState([]); // State for tasks
+
+  // Add a new task
+  const addTask = (task) => {
+    setTasks([...tasks, task]);
+  };
+
+  // Delete a task by index
+  const deleteTask = (index) => {
+    setTasks(tasks.filter((_, i) => i !== index));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ padding: "20px", maxWidth: "400px", margin: "0 auto" }}>
+      <h1 className="text-center">ToDo App</h1>
+
+      <div className="my-4">
+        <AddTask addTask={addTask} />
+        <List tasks={tasks} deleteTask={deleteTask} />
+      </div>
     </div>
   );
 }
-
-export default App;
